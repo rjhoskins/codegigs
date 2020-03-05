@@ -4,22 +4,26 @@ const db = require('../config/database');
 const Gig = require('../models/Gigs');
 
 
-//display gig form 
-// router.get('/add', (req, res) => res.render('add'));
-
 // Get gigs /gigs
 router.get('/', (req, res) => 
-    Gig.findAll()
-        .then(gigs => {
-            // console.log('gigs :', gigs);
-            res.render('gigs', {gigs});
-            // res.render('gigs', {layout: 'main', template: 'gigs', datas: gigs});
-        })
-        .catch(err => console.log('err :', err)));
+Gig.findAll()
+.then(gigs => {
+    // console.log('gigs :', gigs);
+    
+    res.render('gigs', {
+        gigs: gigs,
+        title: 'Gigs'
+    });
+    // res.render('gigs', {layout: 'main', template: 'gigs', datas: gigs});
+})
+.catch(err => console.log('err :', err)));
 
+
+//display gig form 
+router.get('/add', (req, res) => res.render('add'));
 
  //add gig  /gig/add
-router.get('/add', (req, res) => {
+router.post('/add', (req, res) => {
     const data = {
         title: 'looking for a full stack engineer',
         technologies: 'react, javascript, html, css ',
